@@ -10,27 +10,7 @@ function ProjectsPage(){
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
-
-  // Approach 1: using promise then
-  //  useEffect(() => {
-  //    setLoading(true);
-  //    projectAPI
-  //      .get(1)
-  //      .then((data) => {
-  //        setError(null);
-  //        setLoading(false);
-  //        setProjects(data);
-  //      })
-  //      .catch((e) => {
-  //        setLoading(false);
-  //        setError(e.message);
-  //        if (e instanceof Error) {
-  //           setError(e.message);
-  //        }
-  //      });
-  //  }, []);
-
-  // Approach 2: using async/await
+  
   useEffect(() => {
     async function loadProjects() {
       setLoading(true);
@@ -52,21 +32,21 @@ function ProjectsPage(){
 
   const saveProject = (project: Project) => {
     console.log('Saving project: ', project);
-    // let updatedProject = projects.map((p:Project) => {
-    //   return p.id === project.id ? project: p;
-    // });
-    // setProjects(updatedProject);
-    projectAPI.put(project).then((updatedProject) => {
-        let updatedProjects = projects.map((p:Project) => {
-        return p.id === project.id ? new Project(updatedProject): p;
-      });
-      setProjects(updatedProjects);
-    })
-    .catch((e) => {
-      if (e instanceof Error) {
-        setError(e.message);
-      }
+    let updatedProject = projects.map((p:Project) => {
+      return p.id === project.id ? project: p;
     });
+    setProjects(updatedProject);
+    // projectAPI.put(project).then((updatedProject) => {
+    //     let updatedProjects = projects.map((p:Project) => {
+    //     return p.id === project.id ? new Project(updatedProject): p;
+    //   });
+    //   setProjects(updatedProjects);
+    // })
+    // .catch((e) => {
+    //   if (e instanceof Error) {
+    //     setError(e.message);
+    //   }
+    // });
   };
   return (
     <Fragment>

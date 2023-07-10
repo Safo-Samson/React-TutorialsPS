@@ -74,18 +74,17 @@ const projectAPI = {
         mode: 'cors',
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://3000-rpamul-reactjslab-hu8us6j5tmp.ws-eu101.gitpod.io'
+          'Content-Type': 'application/json'
         }
       })
-        .then(checkStatus)
-        .then(parseJSON)
-        .catch((error: TypeError) => {
-          console.log('log client error ' , error);
-          throw new Error(
-            'There was an error updating the project. Please try again.'
-          );
-        });
+      .then(checkStatus)
+      .then(parseJSON)
+      .catch((error: TypeError) => {
+        console.log('log client error ' , error);
+        throw new Error(
+          'There was an error updating the project. Please try again.'
+        );
+      });
     },
 };
 
