@@ -1,5 +1,5 @@
 import { Project } from './Project';
-const baseUrl = 'https://4000-rpamul-reactjslab-hu8us6j5tmp.ws-eu101.gitpod.io';
+const baseUrl = window.location.href;
 const url = `${baseUrl}/projects`;
 
 function translateStatusToErrorMessage(status: number) {
@@ -51,11 +51,7 @@ function convertToProjectModel(item: any): Project {
 
 const projectAPI = {
   get(page = 1, limit = 20) {
-    return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`,{
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include'
-    })
+    return fetch(`${url}?_page=${page}&_limit=${limit}&_sort=name`)
       .then(delay(600))
       .then(checkStatus)
       .then(parseJSON)
@@ -71,8 +67,6 @@ const projectAPI = {
       return fetch(`${url}/${project.id}`, {
         method: 'PUT',
         body: JSON.stringify(project),
-        mode: 'cors',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         }
